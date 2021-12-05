@@ -1,0 +1,4 @@
+include CHANGELOG.md
+include Pipfile
+include Pipfile.lock
+include README.md
