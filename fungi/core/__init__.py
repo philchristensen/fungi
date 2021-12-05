@@ -23,13 +23,13 @@ def print_version(ctx, param, value):
 @click.option('--version', is_flag=True, callback=print_version,
               expose_value=False, is_eager=True)
 @click_logging.simple_verbosity_option(log)
-def cli(i: bool) -> None:
+def cli() -> None:
     """
     A CLI tool for tracking my NFT portfolio..
     """
 
-# from ..auth import auth  # noqa: E402
-# cli.add_command(auth)
+from ..config import config  # pylint: disable=wrong-import-position
+cli.add_command(config)
 
 logging.config.dictConfig({
     'version': 1,
