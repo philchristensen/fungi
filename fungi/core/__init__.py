@@ -30,6 +30,8 @@ def cli() -> None:
 
 from ..config import config  # pylint: disable=wrong-import-position
 cli.add_command(config)
+from ..collection import collection  # pylint: disable=wrong-import-position
+cli.add_command(collection)
 
 logging.config.dictConfig({
     'version': 1,
