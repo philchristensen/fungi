@@ -6,6 +6,14 @@ Config store support code.
 import os
 from configparser import ConfigParser
 from pathlib import Path
+from typing import Any
+
+def get_value(key: str) -> Any:
+    config = get_config()
+    if '.' not in key:
+        key = f"DEFAULT.{key}"
+    ns, key = key.split('.', maxsplit=1)
+    return config[ns][key]
 
 def get_config() -> ConfigParser:
     """

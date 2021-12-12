@@ -35,8 +35,5 @@ def get_config(key: str) -> None:
     """
     Get a configuration value.
     """
-    s = store.get_config()
-    if '.' not in key:
-        key = f"DEFAULT.{key}"
-    ns, key = key.split('.', maxsplit=1)
-    click.echo(s[ns][key])
+    value = store.get_value(key)
+    click.echo(value)
