@@ -32,6 +32,8 @@ from ..config import config  # pylint: disable=wrong-import-position
 cli.add_command(config)
 from ..collection import collection  # pylint: disable=wrong-import-position
 cli.add_command(collection)
+from ..listings import listings  # pylint: disable=wrong-import-position
+cli.add_command(listings)
 
 logging.config.dictConfig({
     'version': 1,

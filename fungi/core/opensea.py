@@ -6,5 +6,13 @@ import opensea
 from ..config import store
 
 def get_collection(slug:str) -> Any:
-    api = opensea.OpenseaAPI(apikey=store.get_value("opensea.api-key"))
+    apikey = store.get_value("opensea.api-key")
+    api = opensea.OpenseaAPI(apikey=apikey)
     return api.collection(collection_slug=slug)
+
+def get_collection_assets(slug:str, offset:int = 0) -> Any:
+    apikey = store.get_value("opensea.api-key")
+    api = opensea.OpenseaAPI(apikey=apikey)
+    c = api.collection(collection_slug=slug)
+    contract = c["collection"]["primary_asset_contracts"][0]["address"]
+    return api.assets(asset_contract_address=contract, offset=offset)
