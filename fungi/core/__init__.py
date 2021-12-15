@@ -28,12 +28,14 @@ def cli() -> None:
     A CLI tool for tracking my NFT portfolio..
     """
 
-from ..config import config  # pylint: disable=wrong-import-position
-cli.add_command(config)
 from ..collection import collection  # pylint: disable=wrong-import-position
 cli.add_command(collection)
+from ..config import config  # pylint: disable=wrong-import-position
+cli.add_command(config)
 from ..listings import listings  # pylint: disable=wrong-import-position
 cli.add_command(listings)
+from ..wallet import wallet  # pylint: disable=wrong-import-position
+cli.add_command(wallet)
 
 logging.config.dictConfig({
     'version': 1,

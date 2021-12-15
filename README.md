@@ -7,4 +7,6 @@ A CLI tool for tracking my NFT portfolio.
 
     fungi collection get lysergiclabsshroomz | jq '.collection.traits'
 
-    fungi collection sales lysergiclabsacidheadz
+    fungi listings get lysergiclabsacidheadz
+
+    fungi wallet get walletname
