@@ -19,7 +19,7 @@ def get_config() -> ConfigParser:
     """
     Syntactic sugar to get the path to the config file.
     """
-    config_path = Path("~/.fungi").expanduser()
+    config_path = Path("~/.fungi/config").expanduser()
     config = ConfigParser()
     if(os.path.exists(config_path)):
         with open(config_path, 'r') as f:
@@ -28,5 +28,7 @@ def get_config() -> ConfigParser:
 
 def save_config(config: ConfigParser) -> None:
     config_path = Path("~/.fungi").expanduser()
-    with open(config_path, 'w') as f:
+    if not config_path.exists():
+        config_path.mkdir()
+    with open(config_path.joinpath('config'), 'w') as f:
         config.write(f)
