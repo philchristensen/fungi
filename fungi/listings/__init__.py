@@ -27,7 +27,7 @@ def get_listings(slug: str) -> None:
     table: List[Any] = []
     count = 1
     page = 0
-    result: List[Any] = []
+    result: List[Any] = [True]
     try:
         with models.Session.begin() as session:
             while(result):

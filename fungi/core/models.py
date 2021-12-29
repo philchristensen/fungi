@@ -18,9 +18,9 @@ def initialize() -> None:
     with Engine.connect():
         Base.metadata.create_all(Engine)
 
-class AbstractBase(Base):
+class LoadableMixin:
     @classmethod
-    def load(cls: Type["AbstractBase"], session: SessionClass, details: Dict[Any, Any]) -> Any:
+    def load(cls: Type[Base], session: SessionClass, details: Dict[Any, Any]) -> Any:  # type: ignore
         stmt = select(cls).filter_by(
             opensea_id       = details["id"],
             opensea_token_id = details["token_id"]
@@ -37,14 +37,14 @@ class AbstractBase(Base):
         result.details = details  # pylint: disable=attribute-defined-outside-init
         return result
 
-def dbcache(cls: Type["AbstractBase"]) -> Callable[[Any], Any]:
+def dbcache(cls: Type[LoadableMixin]) -> Callable[[Any], Any]:
     def _cache(f: Callable[[Any], Any]) -> Callable[[Any], Any]:
         def __cache(session, *a, **kw):  # type: ignore
-            return [cls.load(session, x) for x in f(*a, **kw)]
+            return [cls.load(session, x) for x in f(*a, **kw)]  # type: ignore
         return __cache
     return _cache
 
-class Asset(AbstractBase):
+class Asset(Base, LoadableMixin):
     __tablename__ = 'asset'
     __table_args__ = (Index('uniqueness', "opensea_id", "opensea_token_id"), )
 
