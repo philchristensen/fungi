@@ -56,6 +56,10 @@ logging.config.dictConfig({
         'fungi': {
             'handlers': ['console'],
             'level': 'INFO'
+        },
+        'sqlalchemy': {
+            'handlers': ['console'],
+            'level': 'WARNING'
         }
     }
 })
