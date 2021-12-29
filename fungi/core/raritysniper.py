@@ -12,9 +12,9 @@ ALIASES = {
 }
 
 def get_rarity(asset: Any) -> str:
-    guess = asset['asset_contract']['symbol'].lower()
+    guess = asset.details['asset_contract']['symbol'].lower()
     slug = ALIASES.get(guess, guess)
-    token_id = asset['token_id']
+    token_id = asset.details['token_id']
     response = requests.get(f"https://api.raritysniper.com/public/collection/{slug}/id/{token_id}")
     data = response.json()
     return str(data.get("rank", "n/a"))

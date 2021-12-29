@@ -13,6 +13,8 @@ sqlalchemy = "*"
 [dev-packages]
 mypy = "*"
 sqlalchemy2-stubs = "*"
+types-tabulate = "*"
+types-requests = "*"
 
 [requires]
 python_version = "3.8"

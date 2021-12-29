@@ -8,7 +8,7 @@ from typing import List, Any
 import click
 import tabulate
 
-from ..core import opensea
+from ..core import models, opensea
 
 log = logging.getLogger(__name__)
 
@@ -27,22 +27,22 @@ def get_listings(slug: str) -> None:
     table: List[Any] = []
     count = 1
     page = 0
-    result = {'assets': [True]}
+    result = [True]
     try:
-        while(result['assets']):
-            result = opensea.get_collection_assets(slug, offset=page)
-            for asset in result['assets']:
-                if count % 500 == 0:
-                    log.info(f"Scanned {count} records so far, found {len(table)} orders...")
-                if asset['sell_orders'] is not None:  # type: ignore
-                    for order in asset['sell_orders']:  # type: ignore
-                        table.append(dict(
-                            token_id = asset['token_id'],  # type: ignore
-                            created_date = order['created_date'],
-                            base_price = int(order['base_price']) / 10**18
-                        ))
-                count += 1
-                page += 1
+        with models.Session.begin() as session:
+            while(result):
+                for asset in opensea.get_collection_assets(session, slug, offset=page):
+                    if count % 500 == 0:
+                        log.info(f"Scanned {count} records so far, found {len(table)} orders...")
+                    if asset.details['sell_orders'] is not None:  # type: ignore
+                        for order in asset.details['sell_orders']:  # type: ignore
+                            table.append(dict(
+                                token_id = asset.details['token_id'],  # type: ignore
+                                created_date = order['created_date'],
+                                base_price = int(order['base_price']) / 10**18
+                            ))
+                    count += 1
+                    page += 1
     except KeyboardInterrupt:
         pass
     click.echo(tabulate.tabulate(table, headers="keys"))
