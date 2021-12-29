@@ -16,6 +16,7 @@ mypy = "*"
 sqlalchemy2-stubs = "*"
 types-tabulate = "*"
 types-requests = "*"
+types-click = "*"
 
 [requires]
 python_version = "3.8"

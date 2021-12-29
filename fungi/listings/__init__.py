@@ -27,17 +27,17 @@ def get_listings(slug: str) -> None:
     table: List[Any] = []
     count = 1
     page = 0
-    result = [True]
+    result: List[Any] = []
     try:
         with models.Session.begin() as session:
             while(result):
                 for asset in opensea.get_collection_assets(session, slug, offset=page):
                     if count % 500 == 0:
                         log.info(f"Scanned {count} records so far, found {len(table)} orders...")
-                    if asset.details['sell_orders'] is not None:  # type: ignore
-                        for order in asset.details['sell_orders']:  # type: ignore
+                    if asset.details['sell_orders'] is not None:
+                        for order in asset.details['sell_orders']:
                             table.append(dict(
-                                token_id = asset.details['token_id'],  # type: ignore
+                                token_id = asset.details['token_id'],
                                 created_date = order['created_date'],
                                 base_price = int(order['base_price']) / 10**18
                             ))

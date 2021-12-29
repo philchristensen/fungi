@@ -23,7 +23,7 @@ def get_wallet(slug: str) -> None:
     """
     table: List[Any] = []
     page = 0
-    result = [True]
+    result: List[Any]  = []
     with models.Session.begin() as session:
         while(result):
             result = opensea.get_wallet_assets(session, slug, offset=page)
