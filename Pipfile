@@ -8,8 +8,11 @@ opensea-api = "*"
 tabulate = "*"
 click = "*"
 click-logging = "*"
+sqlalchemy = "*"
 
 [dev-packages]
+mypy = "*"
+sqlalchemy2-stubs = "*"
 
 [requires]
 python_version = "3.8"

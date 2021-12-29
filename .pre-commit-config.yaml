@@ -8,6 +8,7 @@ repos:
   hooks:
   - id: mypy
     args: [--strict, --pretty]
+    additional_dependencies: ["sqlalchemy", "sqlalchemy2-stubs"]
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v2.3.0
   hooks:
