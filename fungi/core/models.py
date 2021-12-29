@@ -32,7 +32,7 @@ class Asset(Base):
     opensea_token_id = Column(String)
     name = Column(String)
     rank = Column(Integer, nullable=True)
-    details = Column(JSON)  # type: ignore
+    details = Column(JSON)
 
     @classmethod
     def load(cls, session, details):

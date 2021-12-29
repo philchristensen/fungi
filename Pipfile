@@ -9,6 +9,7 @@ tabulate = "*"
 click = "*"
 click-logging = "*"
 sqlalchemy = "*"
+mypy = "*"
 
 [dev-packages]
 mypy = "*"
